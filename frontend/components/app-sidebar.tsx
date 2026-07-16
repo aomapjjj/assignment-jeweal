@@ -4,7 +4,6 @@
 
 import * as React from "react";
 import {
-  LayoutDashboard,
   PackageSearch,
   ShoppingCart,
   Users,
@@ -36,7 +35,7 @@ const data = {
   teams: [
     {
       name: "Jewelry Management",
-      logo: <Gem />,
+      logo: <></>,
       plan: "Enterprise",
     },
   ],

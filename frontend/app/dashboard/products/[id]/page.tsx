@@ -403,10 +403,10 @@ export default function ProductDetailPage() {
                   </div>
                 )}
 
-                <div className="grid gap-3 md:grid-cols-2">
+                <div className="w-full">
                   <Button
                     disabled={isUnavailable}
-                    className="h-11"
+                    className="h-11 w-full"
                   >
                     <Link
                       href={`/dashboard/orders/new?productId=${product.id}`}
@@ -417,7 +417,7 @@ export default function ProductDetailPage() {
                     </Link>
                   </Button>
 
-                  <Button
+                  {/* <Button
                     variant="outline"
                     disabled={isUnavailable}
                     className="h-11"
@@ -430,7 +430,7 @@ export default function ProductDetailPage() {
                       <Truck className="mr-2 h-4 w-4" />
                       Create Consignment
                     </Link>
-                  </Button>
+                  </Button> */}
                 </div>
 
                 <p className="text-xs text-muted-foreground">

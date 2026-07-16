@@ -3,90 +3,90 @@ export enum InventoryStatus {
   RESERVED = "RESERVED",
   CONSIGNED = "CONSIGNED",
   SOLD = "SOLD",
-  OUT_OF_STOCK = "OUT_OF_STOCK",
+  OUT_OF_STOCK = "OUT_OF_STOCK"
 }
 
 export enum ProductSortBy {
   PRICE = "price",
   NAME = "name",
   CREATED_AT = "createdAt",
-  STOCK = "stock",
+  STOCK = "stock"
 }
 
 export enum SortOrder {
   ASC = "asc",
-  DESC = "desc",
+  DESC = "desc"
 }
 
 export interface Product {
-  id: string;
+  id: string
 
-  sku: string;
-  productCode: string;
+  sku: string
+  productCode: string
 
-  name: string;
-  description: string | null;
+  name: string
+  description: string | null
 
-  category: string;
-  productType: string;
+  category: string
+  productType: string
 
-  material: string;
+  material: string
 
-  gemstone: string | null;
+  gemstone: string | null
 
-  weight: number | null;
+  weight: number | null
 
-  size: string | null;
+  size: string | null
 
-  imageUrl: string | null;
+  imageUrl: string | null
 
-  price: string;
+  price: string
 
-  stock: number;
+  stock: number
 
-  status: InventoryStatus;
+  status: InventoryStatus
 
-  createdAt: string;
+  createdAt: string
 
-  updatedAt: string;
+  updatedAt: string
 }
 
 export interface ProductQuery {
-  search?: string;
+  search?: string
 
-  category?: string;
+  category?: string
 
-  productType?: string;
+  productType?: string
 
-  material?: string;
+  material?: string
 
-  status?: InventoryStatus;
+  status?: InventoryStatus
 
-  minPrice?: number;
+  minPrice?: number
 
-  maxPrice?: number;
+  maxPrice?: number
 
-  sortBy?: ProductSortBy;
+  sortBy?: ProductSortBy
 
-  sortOrder?: SortOrder;
+  sortOrder?: SortOrder
 
-  page?: number;
+  page?: number
 
-  limit?: number;
+  limit?: number
 }
 
 export interface PaginationMeta {
-  total: number;
+  total: number
 
-  page: number;
+  page: number
 
-  limit: number;
+  limit: number
 
-  totalPages: number;
+  totalPages: number
 }
 
 export interface ProductListResponse {
-  data: Product[];
+  data: Product[]
 
-  meta: PaginationMeta;
+  meta: PaginationMeta
 }

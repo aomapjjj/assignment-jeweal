@@ -49,7 +49,7 @@ export function LoginForm({
 
       toast.success("Login successful.");
 
-      router.push("/dashboard");
+      router.push("/dashboard/products");
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         const message =

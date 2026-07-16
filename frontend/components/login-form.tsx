@@ -44,7 +44,7 @@ export function LoginForm({
 
       localStorage.setItem(
         "accessToken",
-        response.accessToken
+        response.access_token
       );
 
       toast.success("Login successful.");

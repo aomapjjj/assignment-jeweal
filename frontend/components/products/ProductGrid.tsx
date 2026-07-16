@@ -185,10 +185,11 @@ export function ProductGrid({
 
           <CardFooter>
             <Button
-              className="w-full"
+              className="h-12 w-full"
             >
               <Link
                 href={`/dashboard/products/${product.id}`}
+                className="flex"
               >
                 <Eye className="mr-2 h-4 w-4" />
                 View Product

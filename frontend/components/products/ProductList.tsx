@@ -124,7 +124,7 @@ export function ProductList({
               </td>
 
               {/* Product */}
-              <td className="px-6 py-4 align-top">
+              <td className="px-6 py-4 align-center">
                 <div className="space-y-1">
                   <h3 className="font-semibold">
                     {product.name}
@@ -141,7 +141,7 @@ export function ProductList({
               </td>
 
               {/* Category */}
-              <td className="px-6 py-4 align-top">
+              <td className="px-6 py-4 align-center">
                 <div className="space-y-2">
                   <Badge variant="secondary">
                     {product.category}
@@ -154,14 +154,14 @@ export function ProductList({
               </td>
 
               {/* Material */}
-              <td className="px-6 py-4 align-top">
+              <td className="px-6 py-4 align-center">
                 <span className="font-medium">
                   {product.material}
                 </span>
               </td>
 
               {/* Detail */}
-              <td className="px-6 py-4 align-top">
+              <td className="px-6 py-4 align-center">
                 <div className="space-y-2 text-sm">
                   {product.weight && (
                     <div className="flex items-center gap-2">
@@ -184,7 +184,7 @@ export function ProductList({
               </td>
 
               {/* Price */}
-              <td className="px-6 py-4 text-right align-top">
+              <td className="px-6 py-4 text-right align-center">
                 <div className="font-bold text-lg">
                   ฿
                   {Number(product.price).toLocaleString(
@@ -198,7 +198,7 @@ export function ProductList({
               </td>
 
               {/* Status */}
-              <td className="px-6 py-4 text-center align-top">
+              <td className="px-6 py-4 text-center align-center">
                 <Badge
                   variant={getStatusVariant(product.status)}
                   className="gap-1"
@@ -209,12 +209,13 @@ export function ProductList({
               </td>
 
               {/* Action */}
-              <td className="px-6 py-4 text-right align-top">
+              <td className="px-6 py-4 text-right align-center">
                 <Button
-                  size="sm"
+                  size="lg"
                 >
                   <Link
                     href={`/dashboard/products/${product.id}`}
+                    className="flex"
                   >
                     <Eye className="mr-2 h-4 w-4" />
                     View

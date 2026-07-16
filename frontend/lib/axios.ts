@@ -8,28 +8,29 @@ const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("accessToken");
+axiosInstance.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("accessToken");
 
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+  }
 
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+  return config;
+});
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("accessToken");
-        window.location.href = "auth/login";
+    if (
+      typeof window !== "undefined" &&
+      error.response?.status === 401
+    ) {
+      localStorage.removeItem("accessToken");
+
+      if (window.location.pathname !== "/auth/login") {
+        window.location.replace("/auth/login");
       }
     }
 

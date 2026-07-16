@@ -39,10 +39,7 @@ export class OrdersController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: UpdateOrderDto,
-  ) {
+  update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateOrderDto) {
     return this.ordersService.update(id, dto);
   }
 

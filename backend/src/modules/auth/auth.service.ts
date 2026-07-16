@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Injectable,
   UnauthorizedException,
@@ -5,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from '../../database/prisma.service'; 
+import { PrismaService } from '../../database/prisma.service';
 import { LoginDto } from './dto/login.dto';
 
 @Injectable()

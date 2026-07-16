@@ -1,13 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-  IsEnum,
-  IsIn,
-  IsInt,
-  IsOptional,
-  IsString,
-  Max,
-  Min,
-} from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 import { InventoryStatus } from '@prisma/client';
 
 export enum ProductSortBy {

@@ -9,6 +9,7 @@ import {
   Gem,
   Scale,
   BadgeDollarSign,
+  PackageSearch,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -159,32 +160,80 @@ export default function ProductDetailPage() {
         </div>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Similar Products</h2>
+          <div>
+            <h2 className="text-2xl font-semibold">
+              Similar Products
+            </h2>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {similar.map((item) => (
-              <Link key={item.id} href={`/dashboard/products/${item.id}`}>
-                <Card className="transition hover:shadow-lg">
-                  <CardContent className="p-4">
-                    <div className="relative mb-4 aspect-square overflow-hidden rounded-lg border">
-                      <Image
-                        src={item.imageUrl || "https://placehold.co/600x600/png"}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-
-                    <p className="font-semibold">{item.name}</p>
-                    <p className="text-sm text-muted-foreground">{item.category}</p>
-                    <p className="mt-2 font-bold">
-                      ฿{Number(item.price).toLocaleString()}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+            <p className="text-sm text-muted-foreground">
+              Recommend alternative products with similar category or price range.
+            </p>
           </div>
+
+          {similar.length > 0 ? (
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {similar.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/dashboard/products/${item.id}`}
+                >
+                  <Card className="transition hover:shadow-lg hover:border-primary">
+                    <CardContent className="p-4">
+                      <div className="relative mb-4 aspect-square overflow-hidden rounded-lg border">
+                        <Image
+                          src={
+                            item.imageUrl ??
+                            "https://placehold.co/600x600/png"
+                          }
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+
+                      <p className="line-clamp-1 font-semibold">
+                        {item.name}
+                      </p>
+
+                      <p className="text-sm text-muted-foreground">
+                        {item.category}
+                      </p>
+
+                      <p className="mt-2 font-bold">
+                        ฿{Number(item.price).toLocaleString()}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center py-14">
+                <PackageSearch className="mb-4 h-12 w-12 text-muted-foreground" />
+
+                <h3 className="text-lg font-semibold">
+                  No Similar Products Found
+                </h3>
+
+                <p className="mt-2 max-w-md text-center text-sm text-muted-foreground">
+                  We couldn&apos;t find products in the same category or similar price
+                  range. Try browsing the full product catalog for alternative
+                  recommendations.
+                </p>
+
+                <Button
+                  
+                  variant="outline"
+                  className="mt-6"
+                >
+                  <Link href="/dashboard/products">
+                    Browse Product Catalog
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          )}
         </section>
       </div>
     </>

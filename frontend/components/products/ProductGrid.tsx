@@ -184,20 +184,22 @@ export function ProductGrid({
           </CardContent>
 
           <CardFooter>
-            <Button
-              className="h-12 w-full"
+
+            <Link
+              href={`/dashboard/products/${product.id}`}
+              className="w-full "
             >
-              <Link
-                href={`/dashboard/products/${product.id}`}
-                className="flex"
+              <Button
+                className="h-12 w-full flex"
               >
                 <Eye className="mr-2 h-4 w-4" />
                 View Product
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </CardFooter>
         </Card>
-      ))}
-    </div>
+      ))
+      }
+    </div >
   );
 }

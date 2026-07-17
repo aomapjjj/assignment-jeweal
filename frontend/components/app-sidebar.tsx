@@ -1,4 +1,3 @@
-// File: components/app-sidebar.tsx
 
 "use client";
 
@@ -8,11 +7,11 @@ import {
   ShoppingCart,
   Users,
   CreditCard,
-  Gem,
   BarChart3,
-  UserCog,
 } from "lucide-react";
-
+import { useState } from "react";
+import { getCurrentUser } from "@/lib/auth";
+import { User } from "@/types/user";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
@@ -25,13 +24,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-const data = {
-  user: {
-    name: "Admin User",
-    email: "admin@example.com",
-    avatar: "/avatars/admin.jpg",
-  },
 
+const data = {
   teams: [
     {
       name: "Jewelry Management",
@@ -111,13 +105,15 @@ const data = {
       ],
     },
 
-    
+
   ],
 };
 
 export function AppSidebar(
   props: React.ComponentProps<typeof Sidebar>
 ) {
+  const [user] = useState<User | null>(getCurrentUser());
+  
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -129,7 +125,13 @@ export function AppSidebar(
       </SidebarContent>
 
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser
+          user={{
+            name: user?.fullName ?? "",
+            email: user?.email ?? "",
+            avatar: "/avatars/admin.jpg",
+          }}
+        />
       </SidebarFooter>
 
       <SidebarRail />

@@ -47,6 +47,11 @@ export function LoginForm({
         response.access_token
       );
 
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.user)
+      );
+
       toast.success("Login successful.");
 
       router.push("/dashboard/products");

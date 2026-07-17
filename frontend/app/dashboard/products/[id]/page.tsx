@@ -404,18 +404,20 @@ export default function ProductDetailPage() {
                 )}
 
                 <div className="w-full">
-                  <Button
-                    disabled={isUnavailable}
-                    className="h-11 w-full"
+                  <Link
+                    href={isUnavailable ? `/dashboard/products/${product.id}`: `/dashboard/orders/new?productId=${product.id}`}
+                    className="w-full"
                   >
-                    <Link
-                      href={`/dashboard/orders/new?productId=${product.id}`}
-                      className="flex"
+                    <Button
+                      disabled={isUnavailable}
+                      className="h-11 w-full flex"
                     >
+
                       <ShoppingCart className="mr-2 h-4 w-4" />
                       Create Order
-                    </Link>
-                  </Button>
+
+                    </Button>
+                  </Link>
 
                   {/* <Button
                     variant="outline"

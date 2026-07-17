@@ -111,17 +111,7 @@ const data = {
       ],
     },
 
-    {
-      title: "Administration",
-      url: "#",
-      icon: <UserCog />,
-      items: [
-        {
-          title: "Users",
-          url: "/dashboard/users",
-        },
-      ],
-    },
+    
   ],
 };
 

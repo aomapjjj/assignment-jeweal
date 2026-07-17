@@ -489,10 +489,12 @@ export default function OrderDetailPage() {
 
                             <Separator />
 
-                            <Button className="w-full h-12">
-                                <CreditCard className="mr-2 h-4 w-4" />
-                                Record Payment
-                            </Button>
+                            <Link href={`/dashboard/orders/${id}/payment`}>
+                                <Button className="w-full h-12">
+                                    <CreditCard className="mr-2 h-4 w-4" />
+                                    Record Payment
+                                </Button>
+                            </Link>
                         </CardContent>
                     </Card>
                 </div>

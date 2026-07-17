@@ -1,5 +1,5 @@
 "use client"
-
+import { useRouter } from "next/navigation";
 import {
   Avatar,
   AvatarFallback,
@@ -20,7 +20,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
+import { ChevronsUpDownIcon, LogOutIcon } from "lucide-react"
 
 export function NavUser({
   user,
@@ -32,6 +32,15 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    document.cookie =
+      "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    router.replace("/auth/login");
+  };
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -71,8 +80,8 @@ export function NavUser({
                 </div>
               </DropdownMenuLabel>
             </DropdownMenuGroup>
-           
-            <DropdownMenuItem>
+
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOutIcon
               />
               Log out

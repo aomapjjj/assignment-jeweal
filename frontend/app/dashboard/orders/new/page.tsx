@@ -288,7 +288,7 @@ export default function NewOrderPage() {
 
                         <BreadcrumbItem>
                             <BreadcrumbPage>
-                                Order
+                                Orders
                             </BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
@@ -462,6 +462,7 @@ export default function NewOrderPage() {
                                                         {...customerForm.register(
                                                             "fullName"
                                                         )}
+                                                        placeholder="Enter your customer name"
                                                     />
 
                                                     <p className="text-sm text-destructive">
@@ -481,6 +482,7 @@ export default function NewOrderPage() {
                                                         {...customerForm.register(
                                                             "phoneNumber"
                                                         )}
+                                                         placeholder="Enter your customer phone number"
                                                     />
 
                                                     <p className="text-sm text-destructive">
@@ -498,6 +500,7 @@ export default function NewOrderPage() {
                                                         {...customerForm.register(
                                                             "email"
                                                         )}
+                                                         placeholder="Enter your customer email"
                                                     />
 
                                                     <p className="text-sm text-destructive">
@@ -510,7 +513,7 @@ export default function NewOrderPage() {
 
                                                 <Button
                                                     type="submit"
-                                                    className="w-full"
+                                                    className="w-full h-12"
                                                     disabled={creatingCustomer}
                                                 >
                                                     {creatingCustomer ? (

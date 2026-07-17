@@ -248,7 +248,7 @@ export default function OrdersPage() {
                     </div>
 
                     <Button>
-                        <Link href="/dashboard/orders/new" className="flex">
+                        <Link href="/dashboard/products" className="flex">
                             <Plus className="mr-2 h-4 w-4" />
                             Create Order
                         </Link>

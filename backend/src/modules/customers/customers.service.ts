@@ -77,7 +77,6 @@ export class CustomersService {
 
   async remove(id: string) {
     await this.findOne(id);
-    // ป้องกันการลบลูกค้าที่มี Order อยู่แล้ว (data integrity)
     const orderCount = await this.prisma.order.count({
       where: { customerId: id },
     });

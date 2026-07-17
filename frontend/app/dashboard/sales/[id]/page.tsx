@@ -107,7 +107,7 @@ export default function SaleDetailPage() {
                             variant="ghost"
                             className="w-fit"
                         >
-                            <Link href="/dashboard/sales">
+                            <Link href="/dashboard/sales" className="flex">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back
                             </Link>

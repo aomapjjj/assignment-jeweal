@@ -264,10 +264,10 @@ export default function ProductDetailPage() {
               <div className="relative aspect-square overflow-hidden rounded-xl border bg-muted">
                 <Image
                   src={
-                    product.imageUrl ??
+                    product?.imageUrl ??
                     "https://placehold.co/800x800/png"
                   }
-                  alt={product.name}
+                  alt={product?.name}
                   fill
                   className="object-cover"
                   priority

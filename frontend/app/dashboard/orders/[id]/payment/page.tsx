@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Key, useMemo, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -111,7 +111,9 @@ export default function OrderPaymentPage() {
     const router = useRouter();
 
     const params = useParams();
-
+    const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    const [limit] = useState(10);
     const orderId = params.id as string;
 
     const {
@@ -120,10 +122,6 @@ export default function OrderPaymentPage() {
         error: orderError,
     } = useOrder(orderId);
 
-    const {
-        data: payments = [],
-        isLoading: paymentsLoading,
-    } = usePayments(orderId);
 
     const createPayment = useCreatePayment();
 
@@ -144,6 +142,20 @@ export default function OrderPaymentPage() {
     });
 
     const paymentMethod = form.watch("paymentMethod");
+
+    const {
+        data,
+        isLoading: paymentsLoading,
+    } = usePayments({
+        search,
+        paymentMethod,
+        page,
+        limit,
+    });
+
+    const payments = data?.data ?? [];
+
+    const meta = data?.meta;
 
     const slipUrl = form.watch("slipUrl");
 
@@ -425,7 +437,7 @@ export default function OrderPaymentPage() {
 
                                 <TableBody>
 
-                                    {payments.map((payment) => (
+                                    {payments?.map((payment) => (
 
                                         <TableRow key={payment.id}>
 
@@ -436,7 +448,7 @@ export default function OrderPaymentPage() {
                                                     <Calendar className="h-4 w-4 text-muted-foreground" />
 
                                                     {format(
-                                                        new Date(payment.paymentDate),
+                                                        new Date(payment?.paymentDate),
                                                         "dd MMM yyyy"
                                                     )}
 

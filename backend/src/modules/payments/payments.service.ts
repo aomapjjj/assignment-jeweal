@@ -11,6 +11,7 @@ import {
   InventoryStatus,
   Prisma,
 } from '@prisma/client';
+import { QueryPaymentDto } from './dto/query-payment.dto';
 
 @Injectable()
 export class PaymentsService {
@@ -127,6 +128,71 @@ export class PaymentsService {
     const payment = await this.prisma.payment.findUnique({ where: { id } });
     if (!payment) throw new NotFoundException('Payment not found');
     return payment;
+  }
+  async findAll(query: QueryPaymentDto) {
+    const { search, paymentMethod, page = 1, limit = 20 } = query;
+
+    const where: Prisma.PaymentWhereInput = {
+      ...(paymentMethod && {
+        paymentMethod,
+      }),
+
+      ...(search && {
+        OR: [
+          {
+            orderId: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+
+          {
+            note: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      }),
+    };
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.payment.findMany({
+        where,
+
+        include: {
+          order: {
+            include: {
+              customer: true,
+            },
+          },
+        },
+
+        orderBy: {
+          paymentDate: 'desc',
+        },
+
+        skip: (page - 1) * limit,
+
+        take: limit,
+      }),
+
+      this.prisma.payment.count({
+        where,
+      }),
+    ]);
+
+    return {
+      data,
+
+      meta: {
+        total,
+        page,
+        limit,
+
+        totalPages: Math.ceil(total / limit) || 1,
+      },
+    };
   }
 }
 

@@ -624,7 +624,7 @@ export default function OrderDetailPage() {
                         <CardContent>
                             {order.payments.length > 0 ? (
                                 <div className="space-y-4">
-                                    {order.payments.map((payment: { id: Key | null | undefined; amount: string | number; createdAt: string | undefined; method: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<unknown>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<unknown>> | Iterable<ReactNode> | null | undefined> | null | undefined; }) => (
+                                    {order?.payments?.map((payment: { id: Key | null | undefined; amount: string | number; createdAt: string | undefined; method: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<unknown>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<unknown>> | Iterable<ReactNode> | null | undefined> | null | undefined; }) => (
                                         <div
                                             key={payment.id}
                                             className="flex items-center justify-between rounded-lg border p-4"

@@ -1,49 +1,73 @@
 export enum PaymentMethod {
   CASH = "CASH",
   BANK_TRANSFER = "BANK_TRANSFER",
-  QR_CODE = "QR_CODE"
+  QR_CODE = "QR_CODE",
 }
 
 export interface Payment {
-  id: string
+  id: string;
 
-  orderId: string
+  orderId: string;
 
-  amount: number
+  amount: number;
 
-  paymentMethod: PaymentMethod
+  paymentMethod: PaymentMethod;
 
-  slipUrl?: string | null
+  slipUrl?: string | null;
 
-  note?: string | null
+  note?: string | null;
 
-  paymentDate: string
+  paymentDate: string;
 
-  createdAt: string
+  createdAt: string;
 }
 
 export interface CreatePaymentDto {
-  orderId: string
+  orderId: string;
 
-  amount: number
+  amount: number;
 
-  paymentMethod: PaymentMethod
+  paymentMethod: PaymentMethod;
 
-  slipUrl?: string
+  slipUrl?: string;
 
-  note?: string
+  note?: string;
 
-  paymentDate?: string
+  paymentDate?: string;
 }
 
 export interface UploadSlipResponse {
-  url: string
+  url: string;
 
-  filename: string
+  filename: string;
 
-  originalName: string
+  originalName: string;
 
-  size: number
+  size: number;
 
-  mimeType: string
+  mimeType: string;
+}
+
+export interface PaymentQuery {
+  search?: string;
+
+  paymentMethod?: PaymentMethod;
+
+  page?: number;
+
+  limit?: number;
+}
+
+export interface PaymentListResponse {
+  data: Payment[];
+
+  meta: {
+    total: number;
+
+    page: number;
+
+    limit: number;
+
+    totalPages: number;
+  };
 }

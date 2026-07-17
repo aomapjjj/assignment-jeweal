@@ -58,10 +58,10 @@ const data = {
           title: "Orders",
           url: "/dashboard/orders",
         },
-        // {
-        //   title: "Payments",
-        //   url: "/dashboard/payments",
-        // },
+        {
+          title: "Payments",
+          url: "/dashboard/payments",
+        },
       ],
     },
 
@@ -85,10 +85,6 @@ const data = {
         {
           title: "Sales History",
           url: "/dashboard/sales",
-        },
-        {
-          title: "Consignments",
-          url: "/dashboard/consignments",
         },
       ],
     },

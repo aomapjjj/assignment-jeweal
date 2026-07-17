@@ -1,6 +1,3 @@
-// File:
-// components/products/ProductLoading.tsx
-
 import {
   Card,
   CardContent,

@@ -66,7 +66,6 @@ export class ProductsService {
       }),
     };
 
-    // ใช้ $transaction เพื่อให้ count และ data มาจาก snapshot เดียวกัน
     const [data, total] = await this.prisma.$transaction([
       this.prisma.product.findMany({
         where,
@@ -122,7 +121,6 @@ export class ProductsService {
       take,
     });
 
-    // เรียงตามระยะห่างราคาจากสินค้าอ้างอิง (ใกล้สุดมาก่อน) - ทำใน memory เพราะ Prisma ไม่รองรับ ORDER BY ABS() ตรงๆ
     const targetPrice = Number(product.price);
     similar.sort(
       (a, b) =>
@@ -140,7 +138,6 @@ export class ProductsService {
 
   async remove(id: string) {
     await this.findOne(id);
-    // ป้องกันการลบสินค้าที่เคยถูกอ้างอิงใน OrderItem (data integrity / ประวัติการขาย)
     const orderItemCount = await this.prisma.orderItem.count({
       where: { productId: id },
     });

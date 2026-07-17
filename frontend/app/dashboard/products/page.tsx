@@ -1,6 +1,3 @@
-// File:
-// app/dashboard/products/page.tsx
-
 "use client";
 
 import { useState } from "react";

@@ -15,6 +15,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.ufs.sh",
       },
+      {
+        protocol: "https",
+        hostname: "isanook",
+      },
+      {
+        protocol: "https",
+        hostname: "mpics.mgronline",
+      },
+      {
+        protocol: "https",
+        hostname: "thunder.in.th",
+      },
     ],
   },
 };

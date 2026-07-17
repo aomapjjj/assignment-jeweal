@@ -1,6 +1,3 @@
-// File:
-// app/dashboard/customers/page.tsx
-
 "use client";
 
 import Link from "next/link";

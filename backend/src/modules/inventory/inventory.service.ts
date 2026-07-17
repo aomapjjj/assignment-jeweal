@@ -40,7 +40,9 @@ export class InventoryService {
     ]);
 
     return {
-      data: items.map((p) => new InventoryEntity({ ...p, price: Number(p.price) })),
+      data: items.map(
+        (p) => new InventoryEntity({ ...p, price: Number(p.price) }),
+      ),
       meta: {
         total,
         page,
@@ -51,7 +53,9 @@ export class InventoryService {
   }
 
   async findOne(productId: string) {
-    const product = await this.prisma.product.findUnique({ where: { id: productId } });
+    const product = await this.prisma.product.findUnique({
+      where: { id: productId },
+    });
     if (!product) throw new NotFoundException(`Product ${productId} not found`);
     return new InventoryEntity({ ...product, price: Number(product.price) });
   }
@@ -68,7 +72,7 @@ export class InventoryService {
    * should be a deliberate separate action, not an automatic side effect.
    */
   async adjustStock(productId: string, dto: UpdateStockDto) {
-    const { quantityChange, reason } = dto;
+    const { quantityChange } = dto;
 
     try {
       const updated = await this.prisma.product.update({
@@ -90,11 +94,17 @@ export class InventoryService {
 
       return new InventoryEntity({ ...updated, price: Number(updated.price) });
     } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === 'P2025'
+      ) {
         // update matched 0 rows: either product doesn't exist, or the
         // stock guard failed (would have gone negative)
-        const exists = await this.prisma.product.findUnique({ where: { id: productId } });
-        if (!exists) throw new NotFoundException(`Product ${productId} not found`);
+        const exists = await this.prisma.product.findUnique({
+          where: { id: productId },
+        });
+        if (!exists)
+          throw new NotFoundException(`Product ${productId} not found`);
         throw new ConflictException(
           `Cannot reduce stock by ${-quantityChange}: only ${exists.stock} available`,
         );
@@ -131,7 +141,10 @@ export class InventoryService {
         },
       });
     } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === 'P2025'
+      ) {
         throw new ConflictException(
           `Product ${productId} is unavailable or has insufficient stock (already sold/reserved by another order)`,
         );
@@ -141,6 +154,7 @@ export class InventoryService {
 
     // Jewelry items are typically unique (stock hits 0 = the piece is gone).
     // Once stock reaches 0 the item is SOLD; otherwise it stays AVAILABLE.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (updated.stock === 0) {
       updated = await tx.product.update({
         where: { id: productId },
@@ -148,6 +162,7 @@ export class InventoryService {
       });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return updated;
   }
 }

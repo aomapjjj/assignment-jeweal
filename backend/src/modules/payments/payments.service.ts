@@ -64,7 +64,9 @@ export class PaymentsService {
             paymentMethod: dto.paymentMethod,
             slipUrl: dto.slipUrl,
             note: dto.note,
-            paymentDate: dto.paymentDate ? new Date(dto.paymentDate) : undefined,
+            paymentDate: dto.paymentDate
+              ? new Date(dto.paymentDate)
+              : undefined,
           },
         });
 

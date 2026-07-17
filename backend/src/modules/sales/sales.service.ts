@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { OrderStatus, PaymentMethod, Prisma } from '@prisma/client';
 import { PrismaService } from '../../database/prisma.service';
 import { InventoryService } from '../inventory/inventory.service';
@@ -21,6 +25,7 @@ export class SalesService {
    * decrement (or vice versa) is exactly the kind of inventory/payment
    * mismatch this schema exists to prevent.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async createDirectSale(dto: CreateSaleDto, actorUserId: string) {
     const { customerId, items, paymentMethod, slipUrl, note } = dto;
 
@@ -28,19 +33,26 @@ export class SalesService {
     this.validateSlip(paymentMethod, slipUrl);
 
     return this.prisma.$transaction(async (tx) => {
-      const customer = await tx.customer.findUnique({ where: { id: customerId } });
-      if (!customer) throw new NotFoundException(`Customer ${customerId} not found`);
+      const customer = await tx.customer.findUnique({
+        where: { id: customerId },
+      });
+      if (!customer)
+        throw new NotFoundException(`Customer ${customerId} not found`);
 
       // Fetch products fresh inside the transaction — never trust a
       // client-supplied price, and never assume stock/status from an
       // earlier catalog read is still true by the time this request lands.
       const productIds = items.map((i) => i.productId);
-      const products = await tx.product.findMany({ where: { id: { in: productIds } } });
+      const products = await tx.product.findMany({
+        where: { id: { in: productIds } },
+      });
 
       const productMap = new Map(products.map((p) => [p.id, p]));
       const missing = productIds.filter((id) => !productMap.has(id));
       if (missing.length) {
-        throw new NotFoundException(`Product(s) not found: ${missing.join(', ')}`);
+        throw new NotFoundException(
+          `Product(s) not found: ${missing.join(', ')}`,
+        );
       }
 
       let totalAmount = new Prisma.Decimal(0);
@@ -83,7 +95,11 @@ export class SalesService {
       // Deduct stock per line item, atomically guarded against
       // over-selling (see InventoryService.decrementStockForSale).
       for (const item of items) {
-        await InventoryService.decrementStockForSale(tx, item.productId, item.quantity);
+        await InventoryService.decrementStockForSale(
+          tx,
+          item.productId,
+          item.quantity,
+        );
       }
 
       // TODO(production): write an AuditLog row (actorUserId, action:
@@ -125,7 +141,56 @@ export class SalesService {
 
   private validateSlip(method: PaymentMethod, slipUrl?: string) {
     if (method !== PaymentMethod.CASH && !slipUrl) {
-      throw new BadRequestException(`slipUrl is required for payment method ${method}`);
+      throw new BadRequestException(
+        `slipUrl is required for payment method ${method}`,
+      );
     }
+  }
+  async findAll() {
+    return this.prisma.sale.findMany({
+      include: {
+        order: {
+          include: {
+            customer: true,
+            payments: true,
+            items: {
+              include: {
+                product: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        soldAt: 'desc',
+      },
+    });
+  }
+
+  async findOne(id: string) {
+    const sale = await this.prisma.sale.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        order: {
+          include: {
+            customer: true,
+            payments: true,
+            items: {
+              include: {
+                product: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!sale) {
+      throw new NotFoundException('Sale not found');
+    }
+
+    return sale;
   }
 }

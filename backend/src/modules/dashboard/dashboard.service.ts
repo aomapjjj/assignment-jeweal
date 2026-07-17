@@ -105,7 +105,9 @@ export class DashboardService {
         order: {
           include: {
             customer: { select: { id: true, fullName: true } },
-            items: { include: { product: { select: { name: true, sku: true } } } },
+            items: {
+              include: { product: { select: { name: true, sku: true } } },
+            },
           },
         },
       },

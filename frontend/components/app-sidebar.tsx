@@ -64,10 +64,10 @@ const data = {
           title: "Orders",
           url: "/dashboard/orders",
         },
-        {
-          title: "Payments",
-          url: "/dashboard/payments",
-        },
+        // {
+        //   title: "Payments",
+        //   url: "/dashboard/payments",
+        // },
       ],
     },
 
@@ -100,13 +100,13 @@ const data = {
     },
 
     {
-      title: "Reports",
+      title: "Inventory Management",
       url: "#",
       icon: <BarChart3 />,
       items: [
         {
-          title: "Sales Report",
-          url: "/dashboard/reports",
+          title: "Inventory",
+          url: "/dashboard/inventory",
         },
       ],
     },

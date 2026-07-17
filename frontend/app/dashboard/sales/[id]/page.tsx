@@ -540,7 +540,7 @@ export default function SaleDetailPage() {
                     <Button
                         variant="outline"
                     >
-                        <Link href="/dashboard/sales">
+                        <Link href="/dashboard/sales" className="flex">
 
                             <ArrowLeft className="mr-2 h-4 w-4" />
 
@@ -554,6 +554,7 @@ export default function SaleDetailPage() {
                     >
                         <Link
                             href={`/dashboard/orders/${sale.order.id}`}
+                            className="flex"
                         >
 
                             <Receipt className="mr-2 h-4 w-4" />
@@ -568,6 +569,7 @@ export default function SaleDetailPage() {
                     >
                         <Link
                             href={`/dashboard/customers/${sale.order.customer.id}`}
+                            className="flex"
                         >
 
                             <User className="mr-2 h-4 w-4" />
@@ -583,10 +585,10 @@ export default function SaleDetailPage() {
 
                             <a
                                 href={payment.slipUrl}
+                                className="flex"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-
                                 <ExternalLink className="mr-2 h-4 w-4" />
 
                                 Open Slip

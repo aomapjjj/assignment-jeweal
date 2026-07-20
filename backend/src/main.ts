@@ -1,28 +1,34 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  });
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       transform: true,
-      transformOptions: {
-        enableImplicitConversion: true,
-      },
+      forbidNonWhitelisted: true,
     }),
   );
 
-  await app.listen(8000);
+  app.enableCors();
+
+  const config = new DocumentBuilder()
+    .setTitle('Jewelry Management API')
+    .setDescription('REST API for Jewelry Business Management System')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('api', app, document);
+
+  await app.listen(process.env.PORT ?? 8000);
 }
 
 bootstrap();
